@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+    <meta charset="UTF-8">
+
+    <title>Psychic!</title>
+
+    <style>
+        body {
+            background-image: url("http://images.fineartamerica.com/images-medium-large/psychic-hand-mary-delave.jpg");
+            position: absolute;
+            left: 0;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            overflow: hidden;
+
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="game">
+
+        <h1>
+            <strong>
+                <font color="yellow">The Psychic Game</font>
+            </strong>
+        </h1>
+
+        <h2>
+            <font color="yellow">Guess What Letter I'm Thinking Of. . .</font>
+        </h2>
+
+        <h2 id="wins">
+            <font color="green">Wins: 0</font>
+        </h2>
+
+        <h2 id="losses">
+            <font color="red">Losses: 0</font>
+        </h2>
+
+        <h2 id="lives">
+            <font color="orange">Guesses Left: 5</font>
+        </h2>
+
+        <h2 id="guesses">
+            <font color="yellow">Your Guesses So Far:</font>
+        </h2>
+
+        <script type="text/javascript">
+
+            function stringGen() {
+                var text = "";
+
+                var charset = "abcdefghijklmnopqrstuvwxyz";
+
+                text = charset.charAt(Math.floor(Math.random() * charset.length));
+
+                return text;
+            }
+            function startGame() {
+                computerGuess = stringGen();
+                lives = 5;
+                userGuesses = [];
+                document.getElementById("guesses").innerHTML = "Your Guesses So Far: " + userGuesses.join(", ");
+                document.getElementById("lives").innerHTML = "Guesses Left: " + lives;
+            }
+
+            var computerGuess = stringGen();
+            var lives = 5;
+            var wins = 0;
+            var losses = 0;
+            var userGuesses = [];
+            // This function is run whenever the user presses a key.
+            document.onkeyup = function (event) {
+
+                // Determines which key was pressed.
+                var userGuess = event.key;
+                
+                // If user guess is not a-z tell them Not Valid,Try Again.
+
+
+              
+                // Randomly chooses a choice from the options array. This is the Computer's guess.
+                console.log(computerGuess);
+                console.log(userGuess);
+
+                if (userGuess === computerGuess) {
+                    alert("You Win!");
+                    wins++
+                    document.getElementById("wins").textContent = "Wins: " + wins;
+                    startGame();
+                }
+                else if (lives === 0) {
+                    alert("You Lose!");
+                    losses++
+                    document.getElementById("losses").textContent = "Losses: " + losses;
+                    startGame();
+                }
+                else {
+                    userGuesses.push(userGuess);
+                    alert("Try again!");
+                    lives--
+                    document.getElementById("lives").textContent = "Guesses Left: " + lives;
+                    document.getElementById("guesses").textContent = "Your Guesses So Far: " + userGuesses.join(", ");
+                }
+
+            }
+
+
+        </script>
+
+</body>
+
+</html>
